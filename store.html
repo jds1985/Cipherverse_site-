@@ -3,13 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <title>Cipherverse Store</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="glitch.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      color:#e9eefc;
+      background:#111 url("") no-repeat center center fixed;
+      background-size: cover;
+      transition: background 0.3s ease-in-out;
+    }
+    header { 
+      position:fixed; top:0; left:0; right:0; 
+      background:rgba(0,0,0,0.6); 
+      padding:1rem 2rem; display:flex; 
+      justify-content:space-between; 
+      align-items:center; z-index:10;
+    }
+    header h1 { font-size:1.5rem; font-weight:bold; }
+    header .accent { color:#9b5cff; }
+    nav a { margin-left:1rem; color:#e9eefc; text-decoration:none; font-weight:bold; }
+    nav a:hover { color:#9b5cff; }
+    main { padding-top:6rem; text-align:center; }
+    h2 { font-size:2.5rem; margin-bottom:2rem; }
+    .products { display:flex; justify-content:center; flex-wrap:wrap; gap:2rem; }
+    .card { 
+      background:rgba(0,0,0,0.5); 
+      border:1px solid rgba(255,255,255,0.2); 
+      border-radius:12px; 
+      padding:1rem; 
+      width:250px;
+      text-align:center;
+    }
+    .card img {
+      width:100%;
+      border-radius:8px;
+      margin-bottom:0.5rem;
+      cursor:pointer;
+    }
+    .btn.accent {
+      background:#9b5cff; 
+      border:none; 
+      padding:0.5rem 1rem;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      color:#000;
+    }
+    .btn.accent:hover {
+      background:#b983ff;
+      box-shadow:0 0 10px #9b5cff, 0 0 20px #9b5cff;
+    }
+    .uploader {
+      position:fixed; bottom:1rem; right:1rem;
+      background:#9b5cff; color:#000; padding:0.5rem 1rem;
+      border-radius:8px; font-weight:bold; cursor:pointer;
+    }
+    input[type="file"] { display:none; }
+  </style>
 </head>
 <body>
-  <canvas id="glitch-canvas"></canvas>
-  <div class="scanlines"></div>
-
   <header>
     <h1>CIPHER<span class="accent">VERSE</span></h1>
     <nav>
@@ -22,23 +75,112 @@
   <main>
     <h2>The Vault</h2>
     <section class="products">
+      <!-- Card Deck -->
       <div class="card">
-        <img src="images/card-deck.png" alt="Cipherverse Deck">
+        <label>
+          <img id="deckImg" src="" alt="Cipherverse Deck">
+          <input type="file" id="deckUpload" accept="image/*">
+        </label>
         <h3>Cipherverse Card Deck</h3>
         <p>$29</p>
         <button class="btn accent">Buy</button>
       </div>
+
+      <!-- Webster Tee -->
       <div class="card">
-        <img src="images/webster.png" alt="Webster Tee">
+        <label>
+          <img id="websterImg" src="" alt="Webster Tee">
+          <input type="file" id="websterUpload" accept="image/*">
+        </label>
         <h3>Webster Tee</h3>
         <p>$24 — Coming Soon</p>
       </div>
+
+      <!-- Error Tee -->
       <div class="card">
-        <img src="images/error.png" alt="Error Tee">
+        <label>
+          <img id="errorImg" src="" alt="Error Tee">
+          <input type="file" id="errorUpload" accept="image/*">
+        </label>
         <h3>Error Tee</h3>
         <p>$24 — Coming Soon</p>
       </div>
     </section>
   </main>
+
+  <!-- Background Upload -->
+  <label class="uploader" id="bgLabel">
+    Set Background
+    <input type="file" id="bgUpload" accept="image/*">
+  </label>
+
+  <script>
+    // Helper to save image to localStorage
+    function saveImage(key, file, callback) {
+      const reader = new FileReader();
+      reader.onload = evt => {
+        localStorage.setItem(key, evt.target.result);
+        callback(evt.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Background upload
+    document.getElementById('bgUpload').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        saveImage("storeBgImage", file, result => {
+          document.body.style.backgroundImage = `url(${result})`;
+          document.getElementById("bgLabel").style.display = "none";
+        });
+      }
+    });
+
+    // Deck upload
+    document.getElementById('deckUpload').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        saveImage("deckImage", file, result => {
+          document.getElementById('deckImg').src = result;
+        });
+      }
+    });
+
+    // Webster upload
+    document.getElementById('websterUpload').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        saveImage("storeWebsterImage", file, result => {
+          document.getElementById('websterImg').src = result;
+        });
+      }
+    });
+
+    // Error upload
+    document.getElementById('errorUpload').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (file) {
+        saveImage("storeErrorImage", file, result => {
+          document.getElementById('errorImg').src = result;
+        });
+      }
+    });
+
+    // Load saved images on page load
+    window.addEventListener('load', () => {
+      const bg = localStorage.getItem("storeBgImage");
+      const deck = localStorage.getItem("deckImage");
+      const webster = localStorage.getItem("storeWebsterImage");
+      const error = localStorage.getItem("storeErrorImage");
+
+      if (bg) {
+        document.body.style.backgroundImage = `url(${bg})`;
+        document.getElementById("bgLabel").style.display = "none";
+      }
+      if (deck) document.getElementById('deckImg').src = deck;
+      if (webster) document.getElementById('websterImg').src = webster;
+      if (error) document.getElementById('errorImg').src = error;
+    });
+  </script>
 </body>
 </html>
