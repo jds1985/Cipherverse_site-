@@ -9,9 +9,7 @@
       margin:0;
       font-family: Arial, sans-serif;
       color:#e9eefc;
-      background:#111 url("") no-repeat center center fixed;
-      background-size: cover;
-      transition: background 0.3s ease-in-out;
+      background:#111;
     }
     header { 
       position:fixed; top:0; left:0; right:0; 
@@ -26,17 +24,17 @@
     nav a:hover { color:#9b5cff; }
     main { padding-top:6rem; text-align:center; }
     h2 { font-size:2.5rem; margin-bottom:2rem; }
-    .products { display:flex; justify-content:center; flex-wrap:wrap; gap:2rem; }
-    .card { 
-      background:rgba(0,0,0,0.5); 
-      border:1px solid rgba(255,255,255,0.2); 
-      border-radius:12px; 
-      padding:1rem; 
+
+    .card {
+      background:rgba(0,0,0,0.5);
+      border:1px solid rgba(255,255,255,0.2);
+      border-radius:12px;
+      padding:1rem;
       width:250px;
+      margin:2rem auto;
       text-align:center;
     }
 
-    /* Placeholder style */
     .placeholder {
       width:100%;
       height:200px;
@@ -51,35 +49,26 @@
       cursor:pointer;
       margin-bottom:0.5rem;
     }
+
     .card img {
       width:100%;
       height:200px;
       border-radius:8px;
       object-fit:cover;
-      display:none; /* hide until upload */
+      display:none; /* hidden until uploaded */
       margin-bottom:0.5rem;
     }
+    input[type="file"] { display:none; }
 
     .btn.accent {
-      background:#9b5cff; 
-      border:none; 
+      background:#9b5cff;
+      border:none;
       padding:0.5rem 1rem;
       border-radius:8px;
       cursor:pointer;
       font-weight:bold;
       color:#000;
     }
-    .btn.accent:hover {
-      background:#b983ff;
-      box-shadow:0 0 10px #9b5cff, 0 0 20px #9b5cff;
-    }
-
-    .uploader {
-      position:fixed; bottom:1rem; right:1rem;
-      background:#9b5cff; color:#000; padding:0.5rem 1rem;
-      border-radius:8px; font-weight:bold; cursor:pointer;
-    }
-    input[type="file"] { display:none; }
   </style>
 </head>
 <body>
@@ -94,48 +83,17 @@
 
   <main>
     <h2>The Vault</h2>
-    <section class="products">
-      <!-- Card Deck -->
-      <div class="card">
-        <label>
-          <div class="placeholder" id="deckPlaceholder">Click to add image</div>
-          <img id="deckImg" src="">
-          <input type="file" id="deckUpload" accept="image/*">
-        </label>
-        <h3>Cipherverse Card Deck</h3>
-        <p>$29</p>
-        <button class="btn accent">Buy</button>
-      </div>
-
-      <!-- Webster Tee -->
-      <div class="card">
-        <label>
-          <div class="placeholder" id="websterPlaceholder">Click to add image</div>
-          <img id="websterImg" src="">
-          <input type="file" id="websterUpload" accept="image/*">
-        </label>
-        <h3>Webster Tee</h3>
-        <p>$24 — Coming Soon</p>
-      </div>
-
-      <!-- Error Tee -->
-      <div class="card">
-        <label>
-          <div class="placeholder" id="errorPlaceholder">Click to add image</div>
-          <img id="errorImg" src="">
-          <input type="file" id="errorUpload" accept="image/*">
-        </label>
-        <h3>Error Tee</h3>
-        <p>$24 — Coming Soon</p>
-      </div>
-    </section>
+    <div class="card">
+      <label>
+        <div class="placeholder" id="deckPlaceholder">Click to add image</div>
+        <img id="deckImg" src="">
+        <input type="file" id="deckUpload" accept="image/*">
+      </label>
+      <h3>Cipherverse Card Deck</h3>
+      <p>$29</p>
+      <button class="btn accent">Buy</button>
+    </div>
   </main>
-
-  <!-- Background Upload -->
-  <label class="uploader" id="bgLabel">
-    Set Background
-    <input type="file" id="bgUpload" accept="image/*">
-  </label>
 
   <script>
     function saveImage(key, file, callback) {
@@ -147,62 +105,26 @@
       reader.readAsDataURL(file);
     }
 
-    function handleUpload(inputId, imgId, placeholderId, storageKey) {
-      const input = document.getElementById(inputId);
-      input.addEventListener('change', e => {
-        const file = e.target.files[0];
-        if (file) {
-          saveImage(storageKey, file, result => {
-            const img = document.getElementById(imgId);
-            img.src = result;
-            img.style.display = "block";
-            document.getElementById(placeholderId).style.display = "none";
-          });
-        }
-      });
-    }
-
-    // Background upload
-    document.getElementById('bgUpload').addEventListener('change', e => {
+    // Hook up Deck upload
+    document.getElementById("deckUpload").addEventListener("change", e => {
       const file = e.target.files[0];
       if (file) {
-        saveImage("storeBgImage", file, result => {
-          document.body.style.backgroundImage = `url(${result})`;
-          document.getElementById("bgLabel").style.display = "none";
+        saveImage("deckImage", file, result => {
+          const img = document.getElementById("deckImg");
+          img.src = result;
+          img.style.display = "block";
+          document.getElementById("deckPlaceholder").style.display = "none";
         });
       }
     });
 
-    // Hook up product uploads
-    handleUpload("deckUpload", "deckImg", "deckPlaceholder", "deckImage");
-    handleUpload("websterUpload", "websterImg", "websterPlaceholder", "storeWebsterImage");
-    handleUpload("errorUpload", "errorImg", "errorPlaceholder", "storeErrorImage");
-
-    // Load saved images
-    window.addEventListener('load', () => {
-      const bg = localStorage.getItem("storeBgImage");
+    // Load saved image
+    window.addEventListener("load", () => {
       const deck = localStorage.getItem("deckImage");
-      const webster = localStorage.getItem("storeWebsterImage");
-      const error = localStorage.getItem("storeErrorImage");
-
-      if (bg) {
-        document.body.style.backgroundImage = `url(${bg})`;
-        document.getElementById("bgLabel").style.display = "none";
-      }
       if (deck) {
         document.getElementById("deckImg").src = deck;
         document.getElementById("deckImg").style.display = "block";
         document.getElementById("deckPlaceholder").style.display = "none";
-      }
-      if (webster) {
-        document.getElementById("websterImg").src = webster;
-        document.getElementById("websterImg").style.display = "block";
-        document.getElementById("websterPlaceholder").style.display = "none";
-      }
-      if (error) {
-        document.getElementById("errorImg").src = error;
-        document.getElementById("errorImg").style.display = "block";
-        document.getElementById("errorPlaceholder").style.display = "none";
       }
     });
   </script>
