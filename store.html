@@ -9,7 +9,8 @@
       margin:0;
       font-family: Arial, sans-serif;
       color:#e9eefc;
-      background:#111;
+      background: url("images/store-bg.jpg") no-repeat center center fixed;
+      background-size: cover;
     }
     header { 
       position:fixed; top:0; left:0; right:0; 
@@ -24,45 +25,23 @@
     nav a:hover { color:#9b5cff; }
     main { padding-top:6rem; text-align:center; }
     h2 { font-size:2.5rem; margin-bottom:2rem; }
-
-    .card {
-      background:rgba(0,0,0,0.5);
-      border:1px solid rgba(255,255,255,0.2);
-      border-radius:12px;
-      padding:1rem;
+    .products { display:flex; justify-content:center; flex-wrap:wrap; gap:2rem; }
+    .card { 
+      background:rgba(0,0,0,0.5); 
+      border:1px solid rgba(255,255,255,0.2); 
+      border-radius:12px; 
+      padding:1rem; 
       width:250px;
-      margin:2rem auto;
       text-align:center;
     }
-
-    .placeholder {
-      width:100%;
-      height:200px;
-      border-radius:8px;
-      background:white;
-      color:#000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:0.9rem;
-      font-weight:bold;
-      cursor:pointer;
-      margin-bottom:0.5rem;
-    }
-
     .card img {
       width:100%;
-      height:200px;
       border-radius:8px;
-      object-fit:cover;
-      display:none; /* hidden until uploaded */
       margin-bottom:0.5rem;
     }
-    input[type="file"] { display:none; }
-
     .btn.accent {
-      background:#9b5cff;
-      border:none;
+      background:#9b5cff; 
+      border:none; 
       padding:0.5rem 1rem;
       border-radius:8px;
       cursor:pointer;
@@ -83,50 +62,24 @@
 
   <main>
     <h2>The Vault</h2>
-    <div class="card">
-      <label>
-        <div class="placeholder" id="deckPlaceholder">Click to add image</div>
-        <img id="deckImg" src="">
-        <input type="file" id="deckUpload" accept="image/*">
-      </label>
-      <h3>Cipherverse Card Deck</h3>
-      <p>$29</p>
-      <button class="btn accent">Buy</button>
-    </div>
+    <section class="products">
+      <div class="card">
+        <img src="images/card-deck.png" alt="Cipherverse Deck">
+        <h3>Cipherverse Card Deck</h3>
+        <p>$29</p>
+        <button class="btn accent">Buy</button>
+      </div>
+      <div class="card">
+        <img src="images/webster.png" alt="Webster Tee">
+        <h3>Webster Tee</h3>
+        <p>$24 — Coming Soon</p>
+      </div>
+      <div class="card">
+        <img src="images/error.png" alt="Error Tee">
+        <h3>Error Tee</h3>
+        <p>$24 — Coming Soon</p>
+      </div>
+    </section>
   </main>
-
-  <script>
-    function saveImage(key, file, callback) {
-      const reader = new FileReader();
-      reader.onload = evt => {
-        localStorage.setItem(key, evt.target.result);
-        callback(evt.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Hook up Deck upload
-    document.getElementById("deckUpload").addEventListener("change", e => {
-      const file = e.target.files[0];
-      if (file) {
-        saveImage("deckImage", file, result => {
-          const img = document.getElementById("deckImg");
-          img.src = result;
-          img.style.display = "block";
-          document.getElementById("deckPlaceholder").style.display = "none";
-        });
-      }
-    });
-
-    // Load saved image
-    window.addEventListener("load", () => {
-      const deck = localStorage.getItem("deckImage");
-      if (deck) {
-        document.getElementById("deckImg").src = deck;
-        document.getElementById("deckImg").style.display = "block";
-        document.getElementById("deckPlaceholder").style.display = "none";
-      }
-    });
-  </script>
 </body>
 </html>
