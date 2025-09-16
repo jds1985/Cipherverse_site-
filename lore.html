@@ -3,13 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Cipherverse Lore</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="glitch.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      color:#e9eefc;
+      background: url("images/lore-bg.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+    header { 
+      position:fixed; top:0; left:0; right:0; 
+      background:rgba(0,0,0,0.6); 
+      padding:1rem 2rem; display:flex; 
+      justify-content:space-between; 
+      align-items:center; z-index:10;
+    }
+    header h1 { font-size:1.5rem; font-weight:bold; }
+    header .accent { color:#9b5cff; }
+    nav a { margin-left:1rem; color:#e9eefc; text-decoration:none; font-weight:bold; }
+    nav a:hover { color:#9b5cff; }
+    main.hero { padding-top:6rem; text-align:center; }
+  </style>
 </head>
 <body>
-  <canvas id="glitch-canvas"></canvas>
-  <div class="scanlines"></div>
-
   <header>
     <h1>CIPHER<span class="accent">VERSE</span></h1>
     <nav>
@@ -19,24 +36,9 @@
     </nav>
   </header>
 
-  <main>
+  <main class="hero">
     <h2>The Lore</h2>
-    <p>The Cipherverse is unstable. Webster and Error wander its broken halls...</p>
-
-    <section class="cards">
-      <div class="card">
-        <h3>Webster</h3>
-        <img src="images/webster.png" alt="Webster">
-        <p>A seeker of structure inside the collapse...</p>
-      </div>
-      <div class="card">
-        <h3>Error</h3>
-        <img src="images/error.png" alt="Error">
-        <p>A beautiful malfunction. What breaks can also reveal...</p>
-      </div>
-    </section>
-
-    <a href="store.html" class="btn accent">Enter the Store</a>
+    <p>Here lies the story of Webster, Error, and the fractured Cipherverse…</p>
   </main>
 </body>
 </html>
