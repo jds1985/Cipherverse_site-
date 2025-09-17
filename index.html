@@ -2,58 +2,164 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cipherverse</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
   <style>
-    body {
-      margin:0;
-      font-family: Arial, sans-serif;
-      color:#e9eefc;
-      background: url("images/index-bg.jpg") no-repeat center center fixed;
-      background-size: cover;
-      text-align:center;
+    /* Glitch Text Effect */
+    .glitch {
+      position: relative;
+      color: white;
+      font-weight: bold;
     }
-    header { 
-      position:fixed; top:0; left:0; right:0; 
-      background:rgba(0,0,0,0.6); 
-      padding:1rem 2rem; display:flex; 
-      justify-content:space-between; 
-      align-items:center; z-index:10;
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
     }
-    header h1 { font-size:1.5rem; font-weight:bold; }
-    header .accent { color:#9b5cff; }
-    nav a { margin-left:1rem; color:#e9eefc; text-decoration:none; font-weight:bold; }
-    nav a:hover { color:#9b5cff; }
-    main.hero { padding-top:6rem; }
-    .btn {
-      display:inline-block;
-      margin:.5rem;
-      padding:.75rem 1.5rem;
-      border-radius:12px;
-      border:1px solid #e9eefc;
-      color:#e9eefc;
-      text-decoration:none;
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 red;
+      animation: glitch-anim 2s infinite linear alternate-reverse;
     }
-    .btn.accent { background:#9b5cff; border:none; color:#000; }
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 blue;
+      animation: glitch-anim2 3s infinite linear alternate-reverse;
+    }
+    @keyframes glitch-anim {
+      0% { clip: rect(10px, 9999px, 50px, 0); }
+      20% { clip: rect(85px, 9999px, 140px, 0); }
+      40% { clip: rect(30px, 9999px, 80px, 0); }
+      60% { clip: rect(120px, 9999px, 170px, 0); }
+      80% { clip: rect(50px, 9999px, 90px, 0); }
+      100% { clip: rect(10px, 9999px, 60px, 0); }
+    }
+    @keyframes glitch-anim2 {
+      0% { clip: rect(60px, 9999px, 100px, 0); }
+      20% { clip: rect(20px, 9999px, 70px, 0); }
+      40% { clip: rect(100px, 9999px, 150px, 0); }
+      60% { clip: rect(40px, 9999px, 80px, 0); }
+      80% { clip: rect(80px, 9999px, 120px, 0); }
+      100% { clip: rect(30px, 9999px, 70px, 0); }
+    }
+
+    /* Glitch Button Effect */
+    .glitch-btn {
+      position: relative;
+      display: inline-block;
+      padding: 12px 24px;
+      color: white;
+      background: #6b21a8;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 6px;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    .glitch-btn:hover {
+      background: #9333ea;
+    }
+    .glitch-btn::before, .glitch-btn::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      color: white;
+      overflow: hidden;
+      clip: rect(0, 900px, 0, 0);
+    }
+    .glitch-btn::before {
+      text-shadow: -2px 0 red;
+      animation: glitch-anim 2s infinite linear alternate-reverse;
+    }
+    .glitch-btn::after {
+      text-shadow: -2px 0 blue;
+      animation: glitch-anim2 3s infinite linear alternate-reverse;
+    }
   </style>
 </head>
-<body>
-  <header>
-    <h1>CIPHER<span class="accent">VERSE</span></h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="lore.html">Lore</a>
-      <a href="store.html">Store</a>
+<body class="bg-black text-gray-200 font-mono">
+
+  <!-- Header with Logo + Nav -->
+  <header class="flex items-center justify-between px-6 py-4 bg-black bg-opacity-70 fixed w-full z-50">
+    <div class="flex items-center">
+      <img src="images/cipherverse-logo.png" alt="Cipherverse Logo" class="h-12 mr-3">
+      <span class="text-xl font-bold">Cipherverse</span>
+    </div>
+    <nav class="space-x-6">
+      <a href="/" class="glitch-btn" data-text="Home">Home</a>
+      <a href="/lore" class="glitch-btn" data-text="Lore">Lore</a>
+      <a href="/store" class="glitch-btn" data-text="Store">Store</a>
     </nav>
   </header>
 
-  <main class="hero">
-    <h2>Welcome to the <span class="accent">Cipherverse</span></h2>
-    <p>A fractured world of cards, chaos, and hidden truth.</p>
-    <div class="buttons">
-      <a href="lore.html" class="btn accent">Discover the Lore</a>
-      <a href="store.html" class="btn">Enter the Store</a>
+  <!-- Hero Section -->
+  <section class="h-screen flex flex-col items-center justify-center bg-cover bg-center relative" style="background-image: url('images/hero-placeholder.jpg');">
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="relative z-10 text-center">
+      <h1 class="text-5xl md:text-7xl glitch" data-text="The Simulation is Breaking">The Simulation is Breaking</h1>
+      <p class="mt-6 text-lg md:text-xl italic">A world of gears and glitches, collapsing into static.</p>
+      <div class="mt-8 space-x-4">
+        <a href="/store" class="glitch-btn" data-text="Enter the Simulation">Enter the Simulation</a>
+        <a href="/lore" class="glitch-btn" data-text="Learn the Story">Learn the Story</a>
+      </div>
     </div>
-  </main>
+  </section>
+
+  <!-- Quick Pitch -->
+  <section class="bg-gray-900 py-20 px-6 md:px-20 text-center">
+    <h2 class="text-3xl md:text-5xl font-bold mb-6">What is the Cipherverse?</h2>
+    <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-400">
+      Cipherverse is a steampunk-meets-cyberpunk world where ancient machines and broken code collide.
+      The simulation is unraveling, leaving only fragments — characters, vaults, and watchers guarding what remains.
+    </p>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="bg-gray-950 py-24 px-6 md:px-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+      <div>
+        <img src="images/error-placeholder.jpg" alt="Characters" class="mx-auto rounded-xl shadow-lg">
+        <h3 class="mt-6 text-2xl font-semibold">Characters</h3>
+        <p class="mt-2 text-gray-400 italic">Meet Error, Webster, and others born from the glitch.</p>
+      </div>
+      <div>
+        <img src="images/lore-placeholder.jpg" alt="Lore" class="mx-auto rounded-xl shadow-lg">
+        <h3 class="mt-6 text-2xl font-semibold">Lore</h3>
+        <p class="mt-2 text-gray-400 italic">Uncover fragments of the Programmer’s code and the Vault.</p>
+      </div>
+      <div>
+        <img src="images/store-placeholder.jpg" alt="Store" class="mx-auto rounded-xl shadow-lg">
+        <h3 class="mt-6 text-2xl font-semibold">Store</h3>
+        <p class="mt-2 text-gray-400 italic">Step inside and own a piece of the Cipherverse.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vault Panel -->
+  <section class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('images/vault-placeholder.jpg');">
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative z-10 text-center">
+      <h2 class="text-4xl md:text-6xl font-bold">The Vault</h2>
+      <p class="mt-6 text-lg md:text-xl italic">"Not everything is meant to be seen."</p>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="relative h-screen flex flex-col items-center justify-center bg-cover bg-center" style="background-image: url('images/collapse-placeholder.jpg');">
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative z-10 text-center">
+      <h2 class="text-4xl md:text-6xl font-bold">Will you step into the Cipherverse?</h2>
+      <a href="/store" class="mt-10 glitch-btn" data-text="Enter the Simulation">Enter the Simulation</a>
+    </div>
+  </section>
+
 </body>
 </html>
