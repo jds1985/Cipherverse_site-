@@ -1,44 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Cipherverse Lore</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      margin:0;
-      font-family: Arial, sans-serif;
-      color:#e9eefc;
-      background: url("images/lore-bg.jpg") no-repeat center center fixed;
-      background-size: cover;
-    }
-    header { 
-      position:fixed; top:0; left:0; right:0; 
-      background:rgba(0,0,0,0.6); 
-      padding:1rem 2rem; display:flex; 
-      justify-content:space-between; 
-      align-items:center; z-index:10;
-    }
-    header h1 { font-size:1.5rem; font-weight:bold; }
-    header .accent { color:#9b5cff; }
-    nav a { margin-left:1rem; color:#e9eefc; text-decoration:none; font-weight:bold; }
-    nav a:hover { color:#9b5cff; }
-    main.hero { padding-top:6rem; text-align:center; }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>CIPHER<span class="accent">VERSE</span></h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="lore.html">Lore</a>
-      <a href="store.html">Store</a>
-    </nav>
-  </header>
+<section class="bg-black text-gray-200 font-mono">
 
-  <main class="hero">
-    <h2>The Lore</h2>
-    <p>Here lies the story of Webster, Error, and the fractured Cipherverse…</p>
-  </main>
-</body>
-</html>
+  <!-- Section 1 – The Rift -->
+  <div class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('images/rift-placeholder.jpg');">
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="relative z-10 text-center max-w-2xl">
+      <h1 class="text-4xl md:text-6xl font-bold glitch">The Rift</h1>
+      <p class="mt-6 text-lg md:text-xl italic">"The Cipherverse was never meant to last. The simulation is breaking."</p>
+    </div>
+  </div>
+
+  <!-- Section 2 – The Watchers -->
+  <div class="bg-gray-900 py-24 px-6 md:px-20">
+    <h2 class="text-3xl md:text-5xl font-bold text-center mb-16">The Watchers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-center">
+      <div>
+        <img src="images/error-placeholder.jpg" alt="Error" class="mx-auto rounded-xl shadow-lg">
+        <h3 class="mt-6 text-2xl font-semibold">Error</h3>
+        <p class="mt-2 text-gray-400 italic">“The mistake the system tried to delete.”</p>
+      </div>
+      <div>
+        <img src="images/webster-placeholder.jpg" alt="Webster" class="mx-auto rounded-xl shadow-lg">
+        <h3 class="mt-6 text-2xl font-semibold">Webster</h3>
+        <p class="mt-2 text-gray-400 italic">“The crow who carries fragments of memory.”</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3 – The Vault -->
+  <div class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('images/vault-placeholder.jpg');">
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative z-10 text-center max-w-3xl">
+      <h2 class="text-4xl md:text-6xl font-bold">The Vault</h2>
+      <p class="mt-6 text-lg md:text-xl italic">"Inside lies everything — but only fragments can be seen."</p>
+    </div>
+  </div>
+
+  <!-- Section 4 – The Programmer -->
+  <div class="bg-gray-950 py-24 px-6 md:px-20">
+    <div class="max-w-4xl mx-auto text-center">
+      <img src="images/programmer-placeholder.jpg" alt="The Programmer" class="mx-auto rounded-xl shadow-2xl">
+      <h2 class="mt-12 text-3xl md:text-5xl font-bold">The Programmer</h2>
+      <p class="mt-6 text-gray-400 text-lg md:text-xl italic">
+        “No one remembers when the Programmer vanished. But their code still watches.”
+      </p>
+    </div>
+  </div>
+
+  <!-- Final Hook -->
+  <div class="relative h-screen flex flex-col items-center justify-center bg-cover bg-center" style="background-image: url('images/collapse-placeholder.jpg');">
+    <div class="absolute inset-0 bg-black/80"></div>
+    <div class="relative z-10 text-center">
+      <h2 class="text-4xl md:text-6xl font-bold">Will you step into the Cipherverse?</h2>
+      <a href="/store" class="mt-10 inline-block px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white text-xl font-bold rounded-lg shadow-lg transition">Enter the Simulation</a>
+    </div>
+  </div>
+
+</section>
